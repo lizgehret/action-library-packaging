@@ -10,4 +10,4 @@ sudo conda build \
     --override-channels \
     --output-folder $BUILD_DIR \
     --no-anaconda-upload \
-    $RECIPE_PATH
+    $CONDA_RECIPE_PATH

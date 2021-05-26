@@ -11,7 +11,8 @@ REL_CYCLE=2021.4
 export BUILD_DIR=${GITHUB_WORKSPACE}/built-package
 # TODO: When composite actions are supported, replace vars below with
 # Github env vars using input.var syntax
-export RECIPE_PATH="$(env | sed -n 's/^INPUT_RECIPE-PATH=\(.*\)/\1/p')"
+export CONDA_RECIPE_PATH="$(env | sed -n 's/^INPUT_CONDA-RECIPE-PATH=\(.*\)/\1/p')"
+export QIIME2_RECIPE_PATH="$(env | sed -n 's/^INPUT_QIIME2-RECIPE-PATH=\(.*\)/\1/p')"
 export PACKAGE_NAME="$(env | sed -n 's/^INPUT_PACKAGE-NAME=\(.*\)/\1/p')"
 export BUILD_TARGET="$(env | sed -n 's/^INPUT_BUILD-TARGET=\(.*\)/\1/p')"
 export ADDITIONAL_TESTS="$(env | sed -n 's/^INPUT_ADDITIONAL-TESTS=\(.*\)/\1/p')"
@@ -62,6 +63,10 @@ export ENV_URL=${ENV_URL}
 # action steps
 echo "::group::setup"
 alp-1c8c84a3-setup.sh
+echo "::endgroup::"
+
+echo "::group::validate-recipe"
+alp-1c8c84a3-validate-recipe.py $QIIME2_RECIPE_PATH
 echo "::endgroup::"
 
 echo "::group::build"

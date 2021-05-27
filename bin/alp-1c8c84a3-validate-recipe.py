@@ -5,35 +5,21 @@ import pathlib
 import yaml
 
 if __name__ == '__main__':
-    filename = sys.argv[0]
     filepath = sys.argv[1]
-
-    # Does the file exist
-    file = pathlib.Path(filename)
-    if file.exists():
-        print(f'This is the name of the file: ${filename}')
-    else:
-        raise ValueError
     
     # Does the filepath exist
     path = pathlib.Path(filepath)
-    if path.exists():
-        print(f'This is the location of the file: ${filepath}')
-    else:
-        raise ValueError
+    if not path.exists():
+        raise ValueError('filepath not found')
 
     # YAML file parsing
-    recipe = open('../tests/validate-recipe/data/recipe.yml')
-    parsed_recipe = yaml.load(recipe, Loader=yaml.FullLoader)
+    with open(filepath) as recipe:
+        parsed_recipe = yaml.load(recipe, Loader=yaml.FullLoader)
 
-    # Does the file contain a version
-    if parsed_recipe.get('version') == None:
-        raise ValueError
-    else:
-        print(parsed_recipe.get('version'))
+    # Does the file contain the version key
+    if parsed_recipe['version'] == None:
+        raise ValueError('version value not added')
     
-    # Does the file contain a name
-    if parsed_recipe.get('name') == None:
-        raise ValueError
-    else:
-        print(parsed_recipe.get('name'))
+    # Does the file contain the name key
+    if parsed_recipe['name'] == None:
+        raise ValueError('name value not added')

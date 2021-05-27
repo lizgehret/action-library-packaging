@@ -1,10 +1,7 @@
 #!/usr/bin/env python
 
 import unittest
-import os.path
 import subprocess
-import sys
-from pathlib import Path
 
 def run(filepath):
     results = subprocess.run(['python', '../../bin/alp-1c8c84a3-validate-recipe.py', filepath])
@@ -12,26 +9,37 @@ def run(filepath):
 
 class TestValidateRecipe(unittest.TestCase):
 
-    # def test_basic(self):
-    #     filepath = 'data/recipe.yaml'
-    #     obs_exit_code = run(filepath)
-    #     self.assertEqual(obs_exit_code, 0)
+    def test_basic(self):
+        filepath = '../../tests/validate-recipe/data/recipe-basic.yml'
+        obs_exit_code = run(filepath)
+        self.assertEqual(obs_exit_code, 0)
 
-    def test_file_exists(self):
-        filepath = sys.argv[0]
-        file = Path(filepath)
-        assert file.exists()
+    def test_version_not_provided(self):
+        # No version key present
+        obs_exit_code = run('../../tests/validate-recipe/data/recipe-noversion-key.yml')
+        self.assertNotEqual(obs_exit_code, 0)        
+
+        # Version key present, no value
+        obs_exit_code = run('../../tests/validate-recipe/data/recipe-noversion-value.yml')
+        self.assertNotEqual(obs_exit_code, 0)
+
+    def test_name_not_provided(self):
+        # No name key present
+        obs_exit_code = run('../../tests/validate-recipe/data/recipe-noname-key.yml')
+        self.assertNotEqual(obs_exit_code, 0)
+
+        # Name key present, no value
+        obs_exit_code = run('../../tests/validate-recipe/data/recipe-noname-value.yml')
+        self.assertNotEqual(obs_exit_code, 0)
+
+    def test_file_does_not_exist(self):
+        obs_exit_code = run('../../tests/validate-recipe/data/norecipe.yml')
+        self.assertNotEqual(obs_exit_code, 0)
 
     def test_filepath_not_provided(self):
         results = subprocess.run(['python', '../../bin/alp-1c8c84a3-validate-recipe.py'])
         obs_exit_code = results.returncode
         self.assertNotEqual(obs_exit_code, 0)
-
-    # def test_version_provided(self):
-    #     pass
-
-    # def test_name_provided(self):
-    #     pass
 
 if __name__ == '__main__':
         unittest.main()

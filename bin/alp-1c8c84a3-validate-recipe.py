@@ -1,10 +1,5 @@
 #!/usr/bin/env python
 
-# TODO: validate that file exists
-# TODO: Validate that filepath exists
-# TODO: validate that file contains version & name
-
-# import os.path
 import sys
 import pathlib
 import yaml
@@ -12,7 +7,6 @@ import yaml
 if __name__ == '__main__':
     filename = sys.argv[0]
     filepath = sys.argv[1]
-    # os.path.exists(filepath)
 
     # Does the file exist
     file = pathlib.Path(filename)

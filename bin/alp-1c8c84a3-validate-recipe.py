@@ -25,5 +25,5 @@ if __name__ == '__main__':
         raise ValueError('name value not added')
 
     # # Does the file contain the type key and a valid value
-    if parsed_recipe['type'] != ('plugin' or 'interface' or 'utility'):
-        raise ValueError('valid type value not added')
+    if parsed_recipe['type'] not in ['plugin', 'interface', 'utility']:
+        raise ValueError('valid type value not added. allowed values are: plugin, interface, or utility')

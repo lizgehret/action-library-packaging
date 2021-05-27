@@ -32,6 +32,15 @@ class TestValidateRecipe(unittest.TestCase):
         obs_exit_code = run('../../tests/validate-recipe/data/recipe-noname-value.yml')
         self.assertNotEqual(obs_exit_code, 0)
 
+    def test_type_not_valid(self):
+        # No type key present
+        obs_exit_code = run('../../tests/validate-recipe/data/recipe-notype-key.yml')
+        self.assertNotEqual(obs_exit_code, 0)
+
+        # Invalid type value present
+        obs_exit_code = run('../../tests/validate-recipe/data/recipe-invalidtype-value.yml')
+        self.assertNotEqual(obs_exit_code, 0)
+
     def test_file_does_not_exist(self):
         obs_exit_code = run('../../tests/validate-recipe/data/norecipe.yml')
         self.assertNotEqual(obs_exit_code, 0)

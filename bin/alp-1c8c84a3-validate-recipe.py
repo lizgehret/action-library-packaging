@@ -16,10 +16,14 @@ if __name__ == '__main__':
     with open(filepath) as recipe:
         parsed_recipe = yaml.load(recipe, Loader=yaml.FullLoader)
 
-    # Does the file contain the version key
+    # Does the file contain the version key and a value
     if parsed_recipe['version'] == None:
         raise ValueError('version value not added')
     
-    # Does the file contain the name key
+    # Does the file contain the name key and a value
     if parsed_recipe['name'] == None:
         raise ValueError('name value not added')
+
+    # # Does the file contain the type key and a valid value
+    if parsed_recipe['type'] != ('plugin' or 'interface' or 'utility'):
+        raise ValueError('valid type value not added')

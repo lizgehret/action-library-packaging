@@ -18,8 +18,8 @@ if __name__ == '__main__':
 
     # Does the file contain any disallowed keys
     allowed_keys = ['version', 'name', 'type', 'build_cmd', 'requirements', 'test']
-    for parsed_recipe in parsed_recipe.keys():
-        if parsed_recipe not in allowed_keys:
+    for key in parsed_recipe.keys():
+        if key not in allowed_keys:
             raise ValueError(f'invalid key added. allowed keys are: {allowed_keys}')
 
     # Does the file contain the version key and a value
